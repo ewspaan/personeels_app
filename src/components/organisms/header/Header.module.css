@@ -1,0 +1,37 @@
+.headerTop {
+    background-color: dodgerblue;
+    color: white;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: row;
+}
+
+.headerProfile {
+    background-color: dodgerblue;
+    color: white;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.divTop {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+@media screen and (min-width: 916px){
+
+    .headerProfile {
+        background-color: dodgerblue;
+        color: white;
+        padding: 5px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+}
