@@ -14,7 +14,6 @@ async function getFunction(url) {
                 urlGet,
                 config
                 );
-            console.log("getFunction-->  ", result)
             return result.data;
         } catch (e) {
             console.error(e.message);

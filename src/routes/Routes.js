@@ -1,12 +1,15 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import LoginPage from "../../../personeels_app/src/pages/LoginPage";
 import AdminRoute from "./AdminRoute";
 import UserRoute from "./UserRoute";
-import HomePage from "../pages/HomePage";
 import HeaderTop from "../components/organisms/header/HeaderTop";
-import SignUpPage from "../pages/SignUp";
+import LoginPage from "../pages/LoginPage";
+import SignUp from "../pages/SignUp";
+import HomePage from "../pages/HomePage";
 import ProfilePage from "../pages/ProfilePage";
+import AddPage from "../pages/AddPage";
+import EmployeePage from "../pages/EmployeePage";
+import RosterPage from "../pages/RosterPage";
 
 
 
@@ -18,17 +21,20 @@ function Routes() {
                 <Switch>
                     <Route exact path="/" component={ HomePage } />
                     <Route path="/login" component={ LoginPage }/>
-                    <Route path="/signup" component={ SignUpPage }/>
+                    <Route path="/signup" component={ SignUp }/>
                     <UserRoute exact path="/profiel">
                         <ProfilePage/>
                     </UserRoute>
                     <AdminRoute exact path="/dezeweek">
+                        <RosterPage/>
                     </AdminRoute>
                     <AdminRoute exact path="/roostermaken">
                     </AdminRoute>
                     <AdminRoute exact path="/personeel">
+                        <EmployeePage/>
                     </AdminRoute>
                     <AdminRoute exact path="/personeel/toevoegen">
+                        <AddPage/>
                     </AdminRoute>
                     <AdminRoute exact path="/bedrijf">
                     </AdminRoute>

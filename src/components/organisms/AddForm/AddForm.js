@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import styles from "./SignUpForm.module.css"
 import { useForm } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
-import axios from "axios";
+import styles from "../signUpForm/SignUpForm.module.css";
+import {ErrorMessage} from "@hookform/error-message";
+import postDataFunction from "../../../hooks/postDataFunction";
 
-function SignUpForm(){
+
+function AddForm(){
 
     const { register, formState: { errors }, handleSubmit } = useForm()
     const [sending, setSending] = useState(false)
@@ -24,26 +25,17 @@ function SignUpForm(){
                 passwordRepeat: dataSignUp.passwordRepeat,
                 firstName: dataSignUp.firstName,
                 lastName: dataSignUp.lastName,
-                companyName: dataSignUp.companyName,
                 email: dataSignUp.email,
             });
             setError("");
             console.log("client--> ", client)
-            try {
-                const result = await axios.post(`http://localhost:8080/api/auth/signup`,
-                    client,{headers: {
-                            "Content-Type": "application/json",
-                        }})
+                const result = await postDataFunction("users/add",client)
                 console.log("axios result--> ", result)
-            }
-            catch {
-                console.error()
-            }
         }
         setSending(false)
     }
 
-    return(
+    return (
         <div className={styles.page}>
             <form
                 className={styles.page}
@@ -69,13 +61,6 @@ function SignUpForm(){
                     {...register("email", {required: "Email adres moet worden ingevuld"})}
                 />
                 <ErrorMessage errors={errors} name="email" />
-
-                <label htmlFor="companyName">Naam bedrijf: </label>
-                <input
-                    className="companyName"
-                    {...register("companyName", {required: "Bedrijfsnaam moet worden ingevuld"})}
-                />
-                <ErrorMessage errors={errors} name="companyName"/>
 
                 <label htmlFor="username">Gebruikersnaam: </label>
                 <input
@@ -112,6 +97,7 @@ function SignUpForm(){
             </form>
         </div>
     )
+
 }
 
-export default SignUpForm
+export default AddForm
