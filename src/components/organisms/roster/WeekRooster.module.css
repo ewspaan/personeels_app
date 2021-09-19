@@ -1,0 +1,36 @@
+.staff{
+    border: #ffaa5a solid;
+}
+
+.staffMember{
+    border: #ffd25a solid;
+    height: 50px;
+}
+
+.day{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border: #ff785a solid;
+}
+
+.timeCard{
+
+    border: #191919 solid;
+    height: 50px;
+    width: 100px;
+}
+
+.roster{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.page {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+

@@ -10,6 +10,7 @@ import ProfilePage from "../pages/ProfilePage";
 import AddPage from "../pages/AddPage";
 import EmployeePage from "../pages/EmployeePage";
 import RosterPage from "../pages/RosterPage";
+import StandardRosterPage from "../pages/StandardRosterPage";
 
 
 
@@ -29,6 +30,7 @@ function Routes() {
                         <RosterPage/>
                     </AdminRoute>
                     <AdminRoute exact path="/roostermaken">
+                        <StandardRosterPage/>
                     </AdminRoute>
                     <AdminRoute exact path="/personeel">
                         <EmployeePage/>
