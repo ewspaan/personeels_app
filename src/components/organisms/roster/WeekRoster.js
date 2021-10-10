@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {Heading} from "../../atoms/heading/Heading";
-import {useAuthState} from "../../../context/authContext/AuthContext";
 import getFunction from "../../../hooks/getFunction";
 import styles from "./WeekRooster.module.css"
 
@@ -8,7 +7,7 @@ function WeekRoster(){
 
     const [employee, setEmployee] = useState(null);
     const [update,toggleUpdate] = useState(false);
-    const [check, toggleCheck] = useState(false);
+//    const [check, toggleCheck] = useState(false);
 
     useEffect(() => {
         async function getRoommates() {
@@ -25,6 +24,7 @@ function WeekRoster(){
 
     function setTime(employee){
         console.log("zondag" , employee)
+        toggleUpdate(true)
     }
 
     return(

@@ -33,4 +33,12 @@
     align-items: center;
 }
 
+.selectTime{
+    display: flex;
+    align-items: center;
 
+}
+
+.selectDay{
+    display: none;
+}
