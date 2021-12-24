@@ -1,0 +1,23 @@
+.block_black{
+    float: left;
+    height: 20px;
+    /*width: 1px;*/
+    margin-bottom: 15px;
+    border: 1px solid black;
+    clear: both;
+    background-color: black;
+}
+.block_white{
+    float: left;
+    height: 20px;
+    /*width: 1px;*/
+    margin-bottom: 15px;
+    border: 1px solid black;
+    clear: both;
+    background-color: white;
+}
+
+.block{
+    display: flex;
+    width: auto;
+}

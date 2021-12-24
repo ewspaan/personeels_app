@@ -17,8 +17,7 @@
 .timeCard{
 
     border: #191919 solid;
-    height: 50px;
-    width: 100px;
+
 }
 
 .roster{
@@ -41,4 +40,18 @@
 
 .selectDay{
     display: none;
+}
+
+.block{
+    float: left;
+    height: 20px;
+    width: 1px;
+    margin-bottom: 15px;
+    border: 1px solid black;
+    clear: both;
+    background-color: black;
+}
+
+.blockRow{
+    display: flex;
 }

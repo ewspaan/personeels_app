@@ -30,16 +30,17 @@ function EmployeePage(){
     return(
         <div className={styles.page}>
             {employee === null && <p>Er zijn geen personeelsleden. Voeg ze <NavLink to="/personeel/toevoegen">hier</NavLink> toe</p>}
-            {employee !== null && employee.map((roommate) => (
-                <div>
-                    <ProfileEmployee
+            {employee !== null && employee.map((roommate,index) => (
+                <ProfileEmployee
+                        key={index}
                         firstName={roommate.firstName}
                         lastName={roommate.lastName}
                         email={roommate.email}
                         telephoneNumber={roommate.telephoneNumber}
                         dateOfBirth={roommate.dateOfBirth}
-                    />
-                </div>
+                        username={roommate.username}
+                        id={roommate.id}
+                />
             ))
             }
         </div>

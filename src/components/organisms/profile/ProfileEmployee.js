@@ -3,17 +3,16 @@ import styles from "./Profile.module.css";
 import {Heading} from "../../atoms/heading/Heading";
 
 
-function ProfileEmployee({username,firstName,lastName,email,telephoneNumber,dateOfBirth}){
-
+function ProfileEmployee({id,username,firstName,lastName,email,telephoneNumber,dateOfBirth}){
 
     return(
-        <div  className={styles.profile}>
+        <div className={styles.profile}>
             <Heading level={2} children={"Profiel:"}/>
             <ul>
-                <li><p>Naam:</p><p>{firstName} {lastName}</p></li>
-                <li><p>Email:</p><p>{email}</p></li>
-                <li><p>Telefoonnummer:</p><p>{telephoneNumber}</p></li>
-                <li><p>Geboortedatum:</p><p>{dateOfBirth}</p></li>
+                <li key={firstName+lastName+id}>Naam: {firstName} {lastName}</li>
+                <li key={username+firstName+lastName+id}>Email: {email}</li>
+                <li key={username+firstName+id}>Telefoonnummer: {telephoneNumber}</li>
+                <li key={username+lastName+id}>Geboortedatum: {dateOfBirth}</li>
             </ul>
         </div>
     )

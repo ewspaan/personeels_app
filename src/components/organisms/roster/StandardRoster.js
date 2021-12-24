@@ -3,12 +3,17 @@ import styles from "./WeekRooster.module.css"
 import {useForm} from "react-hook-form";
 import postDataFunction from "../../../hooks/postDataFunction";
 import getFunction from "../../../hooks/getFunction";
+import {TotalTimeBlock} from "../../molecules/totalTimeBlock/TotalTimeBlock";
+import {PlusButton} from "../../atoms/button/PlusButton";
+import {MinusButton} from "../../atoms/button/MinusButton";
 
 function StandardRoster(){
 
     const { register, handleSubmit } = useForm()
-    const [endTime, toggleEndTime] = useState(false)
+//  const [endTime, toggleEndTime] = useState(false)
     const [rosterInfo, setRosterInfo] = useState(null)
+//    const [removeCheck, setRemoveCheck] = useState(true)
+    const daysOfTheWeek = ["MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY"]
 
 
 async function onSubmit(data) {
@@ -16,17 +21,35 @@ async function onSubmit(data) {
     console.log("data--> ", data)
     const object = {
             day: data.day,
-            startTimeHour: data.startHour,
-            startTimeMinute : data.startMinute,
-            endTimeHour: data.endHour,
-            endTimeMinute : data.endMinute,
+            startTimeHour: data.startTimeHour,
+            startTimeMinute : data.startTimeMinute,
+            endTimeHour: data.endTimeHour,
+            endTimeMinute : data.endTimeMinute,
             endTime : true,
             multiply: data.multiply,
         }
-    console.log("object--> ", object)
+    console.log("submit object--> ", object)
     const result = await postDataFunction("roster/standard",object)
     console.log("roster result--> ", result)
+    getRosterData()
 
+}
+
+async function removeSubmit(data){
+    console.log("data--> ", data)
+    const object = {
+        day: data.day,
+        startTimeHour: data.startTimeHour,
+        startTimeMinute : data.startTimeMinute,
+        endTimeHour: data.endTimeHour,
+        endTimeMinute : data.endTimeMinute,
+        endTime : true,
+        multiply: data.multiply,
+    }
+    console.log("submit object--> ", object)
+    const result = await postDataFunction("roster/remove",object)
+    console.log("roster result--> ", result)
+    getRosterData()
 }
 
 async function getRosterData(){
@@ -35,6 +58,7 @@ async function getRosterData(){
     setRosterInfo(data)
     console.log("get roster data--> ",data)
 }
+
 
 return(
     <>
@@ -57,13 +81,14 @@ return(
                     <input
                         className="startHour"
                         type="number"
+                        value="1"
                         min="0"
                         max="23"
-                        {...register("startHour")}
+                        {...register("startTimeHour")}
                         />
                     <select
                         className="startMinute"
-                        {...register("startMinute")}>
+                        {...register("startTimeMinute")}>
                         <option value="0" defaultValue>00</option>
                         <option value="15" >15</option>
                         <option value="30">30</option>
@@ -74,13 +99,14 @@ return(
                         <input
                             className="endHour"
                             type="number"
+                            value="2"
                             min="0"
                             max="23"
-                            {...register("endHour")}
+                            {...register("endTimeHour")}
                         />
                         <select
                             className="endMinute"
-                            {...register("endMinute")}>
+                            {...register("endTimeMinute")}>
                             <option value="0" defaultValue>00</option>
                             <option value="15">15</option>
                             <option value="30">30</option>
@@ -88,23 +114,6 @@ return(
                             <option value="60">61</option>
                         </select>
                 </div>
-                {/*<div>*/}
-                {/*    <p>Eindtijd:</p>*/}
-                {/*    <button*/}
-                {/*        type="button"*/}
-                {/*        onClick={(e)=> toggleEndTime(!endTime)}>Ja</button>*/}
-                {/*    <button*/}
-                {/*        type="button"*/}
-                {/*        onClick={(e)=> toggleEndTime(endTime)}>Nee</button>*/}
-                {/*</div>*/}
-                    <select className="multiply"
-                            {...register("multiply")}>
-                        <option value="1">1x</option>
-                        <option value="2">2x</option>
-                        <option value="3" defaultValue>3x</option>
-                        <option value="4">4x</option>
-                        <option value="5">5x</option>
-                    </select>
                 <button type="submit">Send</button>
             </form>
         </div>
@@ -114,24 +123,31 @@ return(
                 onClick={getRosterData}>
                 Info
             </button>
-            {rosterInfo != null && <div>
-                <p>Monday</p>
-                {rosterInfo.map((day,index) => {
-                if (day.day === "MONDAY") {
-                    return <p key={day.day + index}>Starttijd: {day.startTime} eindtijd: {day.endTime}</p>
-                }
-                return null
-            })}
-            </div>}
-            {rosterInfo != null && <div>
-                <p>Tuesday</p>
-                {rosterInfo.map((day,index) => {
-                    if (day.day === "TUESDAY") {
-                        return <p key={day.day + index}>Starttijd: {day.startTime} eindtijd: {day.endTime}</p>
-                    }
-                    return null
-                })}
-            </div>}
+            {daysOfTheWeek.map((weekDay) =>
+                <div className={styles.day} key={weekDay}>
+                <p>{weekDay}</p>
+                {rosterInfo != null &&
+                    rosterInfo.map((day,index) => {
+                        if (day.day === weekDay) {
+                            return (<div key={day.day + index + day.startTimeHour} className={styles.blockRow}>
+                                {/*<p>{day.startTime}</p>*/}
+                                <TotalTimeBlock
+                                    width={day.totalTimeInMinutes}
+                                    startTimeHour={day.startTimeHour}
+                                    startTimeMinute={day.startTimeMinute}
+                                    endTimeHour={day.endTimeHour}
+                                    endTimeMinute={day.endTimeMinute}
+                                />
+                                {/*<p>{day.endTime}</p>*/}
+                                <PlusButton
+                                    onClick={(e) => onSubmit(day)}/>
+                                <MinusButton
+                                    onClick={(e) => removeSubmit(day)}/>
+                            </div>)
+                        }
+                        return null
+                    })}
+                </div>)}
         </div>
         </>
     )
